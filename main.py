@@ -41,9 +41,9 @@ def main(args):
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser("Style Transfer")
-	parser.add_argument("-l", "--learning-rate", type=int, default="0.05", help="learning rate")
+	parser.add_argument("-l", "--learning-rate", type=int, default=0.05, help="learning rate")
 	parser.add_argument("-s", "--style-image-path", type=str, default="./images/style/style.jpg", help="path to the style images")
-	parser.add_argument("-c", "--content-image-path", type=str, default="/images/content/content.jpg", help="path to the content images")
+	parser.add_argument("-c", "--content-image-path", type=str, default="./images/content/content.jpg", help="path to the content images")
 	args = parser.parse_args()
 
 	main(args)
