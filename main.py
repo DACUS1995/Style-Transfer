@@ -17,7 +17,7 @@ def get_intermediate_layers(layers: Dict) -> models.Model:
 	content_layer_outputs = [vgg_model.get_layer(layer_name).output for layer_name in layers["content_layers"]]
 	all_outputs = style_layer_outputs + content_layer_outputs
 
-	return models.Model(vgg_model.input), all_outputs
+	return models.Model(vgg_model.input, all_outputs)
 
 
 def compute_style_loss():
@@ -43,7 +43,9 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser("Style Transfer")
 	parser.add_argument("-l", "--learning-rate", type=int, default=0.05, help="learning rate")
 	parser.add_argument("-s", "--style-image-path", type=str, default="./images/style/style.jpg", help="path to the style images")
-	parser.add_argument("-c", "--content-image-path", type=str, default="./images/content/content.jpg", help="path to the content images")
+	parser.add_argument("-c", "--content-image-path", type=str, default=".
+	
+	as/images/content/content.jpg", help="path to the content images")
 	args = parser.parse_args()
 
 	main(args)
