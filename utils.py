@@ -27,4 +27,11 @@ def preprocess_image(image: np.ndarray) -> np.ndarray:
 	new_img = tf.keras.applications.vgg19.preprocess_input(image)
 	return new_img
 
-def prepare_image_visualization(image)
+def prepare_image_visualization(image: np.ndarray) -> np.ndarray:
+	image_copy = image.copy()
+	image_copy[:, :, 0] += 103.939
+	image_copy[:, :, 1] += 1116.779
+	image_copy[:, :, 2] += 123.68
+	image_copy = image_copy[:, :, ::-1] # VGG preprocess step tranforms RGB -> BGR
+	image_copy = np.clip(image_copy, 0, 255)
+	return image_copy
