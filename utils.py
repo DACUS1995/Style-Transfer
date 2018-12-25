@@ -22,3 +22,9 @@ def display_image(image: np.ndarray) -> None:
 	image = image.astype("uint8")
 	plt.imshow(image)
 	plt.show()
+
+def preprocess_image(image: np.ndarray) -> np.ndarray:
+	new_img = tf.keras.applications.vgg19.preprocess_input(image)
+	return new_img
+
+def prepare_image_visualization(image)
