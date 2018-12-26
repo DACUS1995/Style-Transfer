@@ -35,3 +35,11 @@ def prepare_image_visualization(image: np.ndarray) -> np.ndarray:
 	image_copy = image_copy[:, :, ::-1] # VGG preprocess step tranforms RGB -> BGR
 	image_copy = np.clip(image_copy, 0, 255)
 	return image_copy
+
+def compute_gram_matrix(feature_map: np.ndarray) -> np.ndarray:
+	num_channels = int(feature_map.shape[-1])
+	feature_map = tf.reshape(feature_map, (-1, num_channels))
+	length = tf.shape(feature_map)[0]
+	gram_matrix = tf.matmul(tf.transpose(feature_map), feature_map)
+	gram_matrix = gram_matrix / tf.cast(length, tf.float32)
+	return gram_matrix

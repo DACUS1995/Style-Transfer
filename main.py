@@ -36,8 +36,9 @@ def compute_style_loss(tranformed_image, target_content_image):
 	return tf.reduce_mean(tf.square(tranformed_image - target_content_image))
 
 
-def compute_content_loss():
-	pass
+def compute_content_loss(computed_style, targeted_style_gram):
+	computed_style_gram = utils.compute_gram_matrix(computed_style)
+	return tf.reduce_mean(tf.square(computed_style_gram - targeted_style_gram))
 
 
 def transfer_style(content_image, style_image):
