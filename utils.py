@@ -28,7 +28,7 @@ def preprocess_image(image: np.ndarray) -> np.ndarray:
 	return new_img
 
 def prepare_image_visualization(image: np.ndarray) -> np.ndarray:
-	if len(x.shape) == 4:
+	if len(image.shape) == 4:
 		image = np.squeeze(image, 0)
 	image_copy = image.copy()
 	image_copy[:, :, 0] += 103.939
