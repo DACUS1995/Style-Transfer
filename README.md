@@ -1,6 +1,6 @@
 # Style-Transfer 
 
-This is an implementation of the tehnique described in [A Neural Algorithm of Artistic Style].
+This is an implementation of the technique described in [A Neural Algorithm of Artistic Style].
 I have also created a Colab notebook version.
 
 ---
