@@ -103,16 +103,17 @@ def transfer_style(content_image, style_image, learning_rate=5, content_weight=1
 	style_representations_gram_matrix = [utils.compute_gram_matrix(layer[0]) for layer in style_representations[:len(STYLE_LAYERS)]]
 
 	# Create the generated image
-	generated_image = np.empty(content_image.shape)
+	generated_image = np.copy(content_image)
 	generated_image = tfe.Variable(generated_image, dtype=tf.float32)
 	
 	optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate, beta1=0.99, epsilon=1e-1)
 	loss_weights = (style_weight, content_weight)
 	best_loss, best_img = float('inf'), None
 
-	# For displaying
+	# For displaying grid
 	num_rows = 2
 	num_cols = 5
+
 	display_interval = num_iterations/(num_rows * num_cols)
 	start_time = time.time()
 	global_start = time.time()
@@ -135,28 +136,25 @@ def transfer_style(content_image, style_image, learning_rate=5, content_weight=1
 		optimizer.apply_gradients([(grads, generated_image)])
 		clipped = tf.clip_by_value(generated_image, min_vals, max_vals)
 		generated_image.assign(clipped)
-		end_time = time.time() 
 
+		# Save the image with the best score(smallest total loss)
 		if loss < best_loss:
-			# Update best loss and best image from total loss. 
 			best_loss = loss
 			best_img = utils.prepare_image_visualization(generated_image.numpy())
 
-		if i % display_interval== 0:
+		if i % display_interval == 0:
 			start_time = time.time()
 
-	    # Use the .numpy() method to get the concrete numpy array
-		plot_img = generated_image.numpy()
-		plot_img = utils.prepare_image_visualization(plot_img)
-		imgs.append(plot_img)
-		IPython.display.clear_output(wait=True)
-		IPython.display.display_png(Image.fromarray(plot_img))
-		print('Iteration: {}'.format(i))        
-		print('Total loss: {:.4e}, ' 
-				'style loss: {:.4e}, '
-				'content loss: {:.4e}, '
-				'time: {:.4f}s'.format(loss, style_score, content_score, time.time() - start_time))
-	print('Total time: {:.4f}s'.format(time.time() - global_start))
+			# Use the .numpy() method to get the concrete numpy array
+			plot_img = generated_image.numpy()
+			plot_img = utils.prepare_image_visualization(plot_img)
+			imgs.append(plot_img)
+			IPython.display.clear_output(wait=True)
+			IPython.display.display_png(Image.fromarray(plot_img))
+			print(f'Iteration: {i}')      
+			print(f'Total loss: {loss}, style loss: {style_score}, content loss: {content_score}, time: {time.time() - start_time}s')
+	print(f'Total time: {time.time() - global_start}s')
+
 	IPython.display.clear_output(wait=True)
 	plt.figure(figsize=(14,4))
 	for i,img in enumerate(imgs):
@@ -178,9 +176,9 @@ def main(args):
 		num_iterations=args.iterations
 	)
 
-	img = Image.fromarray(best_img, 'RGB')
+	img = Image.fromarray(best_img)
 	img.save('my.png')
-	img.show()
+	IPython.display.display_png(img)
 
 
 if __name__ == "__main__":

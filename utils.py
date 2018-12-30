@@ -32,10 +32,10 @@ def prepare_image_visualization(image: np.ndarray) -> np.ndarray:
 		image = np.squeeze(image, 0)
 	image_copy = image.copy()
 	image_copy[:, :, 0] += 103.939
-	image_copy[:, :, 1] += 1116.779
+	image_copy[:, :, 1] += 116.779
 	image_copy[:, :, 2] += 123.68
 	image_copy = image_copy[:, :, ::-1] # VGG preprocess step tranforms RGB -> BGR
-	image_copy = np.clip(image_copy, 0, 255)
+	image_copy = np.clip(image_copy, 0, 255).astype('uint8') # !! PIL.Image.fromarray() must have unsigned type
 	return image_copy
 
 def compute_gram_matrix(feature_map: np.ndarray) -> np.ndarray:
