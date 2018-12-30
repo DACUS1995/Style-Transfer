@@ -102,7 +102,7 @@ def transfer_style(content_image, style_image, learning_rate=5, content_weight=1
 	content_representations = [layer[0] for layer in content_representations[len(STYLE_LAYERS):]]
 	style_representations_gram_matrix = [utils.compute_gram_matrix(layer[0]) for layer in style_representations[:len(STYLE_LAYERS)]]
 
-	# Create the generated image
+	# Create the generated image, as a trick use as base the content image
 	generated_image = np.copy(content_image)
 	generated_image = tfe.Variable(generated_image, dtype=tf.float32)
 	
