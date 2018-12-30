@@ -145,7 +145,6 @@ def transfer_style(content_image, style_image, learning_rate=5, content_weight=1
 		if i % display_interval == 0:
 			start_time = time.time()
 
-			# Use the .numpy() method to get the concrete numpy array
 			plot_img = generated_image.numpy()
 			plot_img = utils.prepare_image_visualization(plot_img)
 			imgs.append(plot_img)

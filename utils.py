@@ -14,6 +14,7 @@ def load_image(image_path: str, dimension=512) -> np.ndarray:
 	image = image.resize((round(image.size[0] * scale), round(image.size[1] * scale)), Image.ANTIALIAS)
 	image = kp_image.img_to_array(image)
 
+	# Add one dimension for batches
 	image = np.expand_dims(image, axis=0)
 	return image
 
