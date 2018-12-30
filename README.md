@@ -7,6 +7,18 @@ I have also created a Colab notebook version.
 
 Results (This is a picture of me after applying the style transfer):
 
+Content image:
+
+![alt text](https://github.com/DACUS1995/Style-Transfer/blob/master/images/content/content_2.jpg "Content")
+
+Style image:
+
+![alt text](https://github.com/DACUS1995/Style-Transfer/blob/master/images/style/style_2.jpg "Style")
+
+Generated image:
+
+![alt text](https://github.com/DACUS1995/Style-Transfer/blob/master/images/results/result_1.png "Result")
+
 ---
 
 Resources that helped me to better understand the problem:
